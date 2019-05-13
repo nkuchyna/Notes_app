@@ -52,15 +52,14 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Kcr-RH-ACt" firstAttribute="top" secondItem="Ltx-3B-AJy" secondAttribute="topMargin" id="4HK-TN-Tgj"/>
+                                                <constraint firstItem="Kcr-RH-ACt" firstAttribute="trailing" secondItem="Ltx-3B-AJy" secondAttribute="trailingMargin" id="5IB-vO-xSQ"/>
                                                 <constraint firstItem="hFd-6O-Zof" firstAttribute="trailing" secondItem="Ltx-3B-AJy" secondAttribute="trailingMargin" id="8bZ-MR-Um7"/>
                                                 <constraint firstItem="Qct-a0-BKw" firstAttribute="leading" secondItem="Ltx-3B-AJy" secondAttribute="leadingMargin" id="9Rs-EN-JIp"/>
-                                                <constraint firstItem="Kcr-RH-ACt" firstAttribute="trailing" secondItem="Ltx-3B-AJy" secondAttribute="trailingMargin" id="BxB-pY-QPH"/>
                                                 <constraint firstItem="hFd-6O-Zof" firstAttribute="top" secondItem="Qct-a0-BKw" secondAttribute="bottom" constant="15" id="J7R-S2-IxS"/>
                                                 <constraint firstItem="hFd-6O-Zof" firstAttribute="leading" secondItem="Ltx-3B-AJy" secondAttribute="leadingMargin" id="ZLt-PH-CSh"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="hFd-6O-Zof" secondAttribute="bottom" constant="13.5" id="b1L-X6-2t3"/>
                                                 <constraint firstItem="Kcr-RH-ACt" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Qct-a0-BKw" secondAttribute="trailing" constant="100" id="hQJ-gN-sZ2"/>
                                                 <constraint firstItem="Qct-a0-BKw" firstAttribute="top" secondItem="Ltx-3B-AJy" secondAttribute="topMargin" id="m8i-dr-onI"/>
-                                                <constraint firstItem="Kcr-RH-ACt" firstAttribute="trailing" secondItem="Ltx-3B-AJy" secondAttribute="trailingMargin" id="vKy-va-qe4"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -90,9 +89,11 @@
                             <constraint firstItem="uIr-2M-akt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="iIc-c3-yth"/>
                             <constraint firstItem="uIr-2M-akt" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="jQH-VS-EGc"/>
                             <constraint firstItem="7jK-y7-lcC" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="jlN-XL-Ce5"/>
+                            <constraint firstItem="uIr-2M-akt" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="lLc-fg-Jan"/>
                             <constraint firstAttribute="bottom" secondItem="7jK-y7-lcC" secondAttribute="bottom" id="net-QX-2P8"/>
                             <constraint firstItem="uIr-2M-akt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="o2e-AJ-95u"/>
                             <constraint firstItem="7jK-y7-lcC" firstAttribute="top" secondItem="uIr-2M-akt" secondAttribute="bottom" constant="8" id="pCT-fz-UD7"/>
+                            <constraint firstItem="uIr-2M-akt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="tiV-Pd-HEH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

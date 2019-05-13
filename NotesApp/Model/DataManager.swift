@@ -12,7 +12,7 @@ import Foundation
 class DataManager {
     static let shared = DataManager()
     let dateFormatter: DateFormatter
-    var data: Data
+    private var data: Data
     var noteSortFunctionArr : Dictionary = [eSortType : (Note, Note) -> Bool]()
     public var managedObjectContext : NSManagedObjectContext
     
@@ -43,7 +43,7 @@ class DataManager {
     
         //Aditional initialization
         self.dateFormatter = DateFormatter()
-        self.data = Data(state: eState.EDIT, sortType: eSortType.MODDATE_DESC, fetchOffset: 0, notes: [Note]())
+        self.data = Data(state: eState.EDIT, sortType: eSortType.MODDATE_DESC, fetchOffset: 0, notes: [Note](), matchingItems: [Note]())
         self.data.notes = getNotePack()
         //Inialization of note sort function array
         noteSortFunctionArr[eSortType.NAME_ACS] = sortNameAsc
@@ -78,8 +78,16 @@ class DataManager {
         return data.notes[index]
     }
     
+    public func getMatchNote(index : Int) -> Note {
+        return data.matchingItems[index]
+    }
+    
     public func getNotesNbr() -> Int {
         return  data.notes.count
+    }
+    
+    public func getMatchNotesNbr() -> Int {
+        return  data.matchingItems.count
     }
     
     public  func setState(state: eState) {
@@ -115,6 +123,14 @@ class DataManager {
         if(data.notes.count > index) {
             managedObjectContext.delete(data.notes[index])
             data.notes.remove(at: index)
+            save()
+        }
+    }
+    
+    public  func deleteMatchNoteAtIndex(index : Int) {
+        if(data.notes.count > index) {
+            managedObjectContext.delete(data.matchingItems[index])
+            data.matchingItems.remove(at: index)
             save()
         }
     }
@@ -171,9 +187,18 @@ class DataManager {
         }
     }
     
-    public func sortNotesArr( notesArr: inout [Note], sortType: eSortType) {
-        if(notesArr.count > 1){
-            notesArr.sort(by: noteSortFunctionArr[sortType]!)
+    public func sortMatchingNotes(sortType: eSortType) {
+        if(data.matchingItems.count > 1){
+            data.matchingItems.sort(by: noteSortFunctionArr[sortType]!)
         }
+    }
+    
+    func filterContent(for searchText: String){
+        data.matchingItems = data.notes.filter { note in
+            let isMatchingSearchText =    ((note.info?.lowercased().range(of: searchText.lowercased())) != nil) || searchText.lowercased().count == 0
+            return isMatchingSearchText
+        }
+        print("sort note")
+        sortMatchingNotes(sortType: data.sortType)
     }
 }

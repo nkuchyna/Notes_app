@@ -10,28 +10,18 @@ import UIKit
 
 class NoteListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NoteSortAlertControllerDelegate, UISearchResultsUpdating {
     
-    var matchingItems = [Note]()
-    
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = resultSearchController?.searchBar.text {
-            filterContent(for: searchText)
+            DataManager.shared.filterContent(for: searchText)
             self.notesTable.reloadData()
         }
-    }
-    
-    func filterContent(for searchText: String){
-        self.matchingItems = DataManager.shared.data.notes.filter { note in
-            let isMatchingSearchText =    ((note.info?.lowercased().range(of: searchText.lowercased())) != nil) || searchText.lowercased().count == 0
-            return isMatchingSearchText
-        }
-        DataManager.shared.sortNotesArr(notesArr: &self.matchingItems, sortType: DataManager.shared.getSortType())
     }
 
     var resultSearchController:UISearchController? = nil
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(resultSearchController?.isActive)! {
-            return matchingItems.count
+            return  DataManager.shared.getMatchNotesNbr()
         }
         return DataManager.shared.getNotesNbr()
     }
@@ -58,7 +48,7 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "note") as? NoteTableCell
         if(resultSearchController?.isActive)!{
-            cell?.note = (matchingItems[indexPath.row].info, DataManager.shared.getDate(date: matchingItems[indexPath.row].modDate!), DataManager.shared.getTime(date: matchingItems[indexPath.row].modDate!) ) as? (String, String, String)
+            cell?.note = (DataManager.shared.getMatchNote(index: indexPath.row).info, DataManager.shared.getDate(date: DataManager.shared.getMatchNote(index: indexPath.row).modDate!), DataManager.shared.getTime(date: DataManager.shared.getMatchNote(index: indexPath.row).modDate!)) as? (String, String, String)
         }
         else {
             cell?.note = (DataManager.shared.getNote(index: indexPath.row).info, DataManager.shared.getDate(date: DataManager.shared.getNote(index: indexPath.row).modDate!), DataManager.shared.getTime(date: DataManager.shared.getNote(index: indexPath.row).modDate!)) as? (String, String, String)
@@ -69,6 +59,7 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func unWindSegue(segue : UIStoryboardSegue)
     {
         if(segue.identifier == "backToNotesList") {
+            resultSearchController?.searchBar.sizeToFit()
             notesTable.reloadData()
         }
     }
@@ -81,7 +72,12 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
                         editViewController.changeState(state: AddState())
                     case eState.EDIT:
                         let indexPath = sender as! IndexPath
-                        editViewController.note = DataManager.shared.getNote(index: indexPath.row)
+                        if(self.resultSearchController?.isActive)! {
+                            editViewController.note = DataManager.shared.getMatchNote(index: indexPath.row)
+                        }
+                        else{
+                            editViewController.note = DataManager.shared.getNote(index: indexPath.row)
+                        }
                         editViewController.changeState(state: EditState())
                     default:
                         return;
@@ -100,8 +96,8 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
         let deleteAction = UITableViewRowAction(style: .normal, title: "Delete"){
             (rowAction, indexPath) in
             if(self.resultSearchController?.isActive)! {
-                DataManager.shared.deleteNote(note: self.matchingItems[indexPath.row])
-                self.matchingItems.remove(at: indexPath.row)
+                DataManager.shared.deleteNote(note: DataManager.shared.getMatchNote(index: indexPath.row))
+                DataManager.shared.deleteMatchNoteAtIndex(index: indexPath.row)
             }
             else
             {
@@ -143,6 +139,7 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
         searchBar.placeholder = "Search note..."
         myView.addSubview((resultSearchController?.searchBar)!)
         resultSearchController?.searchResultsUpdater = self
+        resultSearchController?.searchBar.sizeToFit()
         resultSearchController?.hidesNavigationBarDuringPresentation = false
         resultSearchController?.dimsBackgroundDuringPresentation = false
         resultSearchController?.searchBar.tintColor = UIColor.black
@@ -153,6 +150,7 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.resultSearchController?.searchBar.frame.size.width = self.view.frame.size.width
         DataManager.shared.sortAllNotes(sortType:  DataManager.shared.getSortType())
     }
 
@@ -164,6 +162,7 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { (context) in
+            print(self.view.frame.size.width)
             self.resultSearchController?.searchBar.frame.size.width = self.view.frame.size.width
         }, completion: nil)
     }

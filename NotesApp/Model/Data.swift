@@ -14,4 +14,5 @@ struct  Data
     var sortType: eSortType
     var fetchOffset: Int
     var notes : [Note] = [Note]()
+    var matchingItems = [Note]()
 }

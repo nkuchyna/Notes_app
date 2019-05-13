@@ -34,12 +34,7 @@ class AddEditNoteViewController: UIViewController, UITextViewDelegate {
         state.editFormat()
         infoTextView.delegate = self
         infoTextView.checkPlaceholder()
-        let backgroundImage = UIImage.init(named: "dotes")
-        let backgroundImageView = UIImageView.init(frame: self.view.frame)
-        backgroundImageView.image = backgroundImage
-        backgroundImageView.contentMode = .scaleAspectFill
-        backgroundImageView.alpha = 0.1
-        self.view.insertSubview(backgroundImageView, at: 0)
+        self.view.addBackground(image: UIImage.init(named: "dotes")!)
     }
 
     func changeState(state : State)
@@ -62,12 +57,12 @@ class AddEditNoteViewController: UIViewController, UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         infoTextView.disablePlaceholder()
     }
-    
+
     func textViewDidEndEditing(_ textView: UITextView) {
         infoTextView.backgroundColor = UIColor.white
         infoTextView.checkPlaceholder()
     }
-    
+
     func    validateString(string : String) -> Bool {
         if string.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             showAlertMessage(vc: self, titleStr: "Error", messageStr: "Text is empty")

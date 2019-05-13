@@ -139,7 +139,6 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
         //search init
         resultSearchController = UISearchController(searchResultsController: nil)
         let searchBar = resultSearchController!.searchBar
-        searchBar.sizeToFit()
         searchBar.placeholder = "Search note..."
         myView.addSubview((resultSearchController?.searchBar)!)
         resultSearchController?.searchResultsUpdater = self
@@ -149,7 +148,7 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
         resultSearchController?.searchBar.barTintColor = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1)
         definesPresentationContext = true
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.49, green: 0.17, blue: 0.2, alpha: 1)
-         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(red: 1, green: 1, blue: 1, alpha: 1)]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(red: 1, green: 1, blue: 1, alpha: 1)]
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -159,4 +158,13 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
     func updateSourceView() {
         notesTable.reloadData()
     }
+
+    //auto resize of the search controller
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: { (context) in
+            self.resultSearchController?.searchBar.frame.size.width = self.view.frame.size.width
+        }, completion: nil)
+    }
 }
+

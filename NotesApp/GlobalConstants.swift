@@ -29,3 +29,19 @@ func showAlertMessage(vc: UIViewController, titleStr:String, messageStr:String) 
     _gAlert.message = messageStr
     vc.present(_gAlert, animated: true)
 }
+
+extension UIView {
+    func addBackground(image : UIImage) {
+        let backgroundImageView = UIImageView()
+        backgroundImageView.image = image
+        backgroundImageView.clipsToBounds = true
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundImageView.alpha = 0.1
+        backgroundImageView.contentMode = .scaleAspectFill
+        self.insertSubview(backgroundImageView, at: 0)
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[backgroundImageView]|", options: [],
+                                                           metrics: nil, views: ["backgroundImageView": backgroundImageView]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[backgroundImageView]|", options: [],
+                                                           metrics: nil, views: ["backgroundImageView": backgroundImageView]))
+    }
+}

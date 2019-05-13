@@ -54,14 +54,12 @@ class DataManager {
         noteSortFunctionArr[eSortType.MODDATE_DESC] = sortModDateDesc
     }
 
-    public func getDate(date: Date) -> String
-    {
+    public func getDate(date: Date) -> String {
         self.dateFormatter.dateFormat = "MMMM dd, yyyy"
         return self.dateFormatter.string(from: date)
     }
     
-    public func getTime(date: Date) -> String
-    {
+    public func getTime(date: Date) -> String {
         self.dateFormatter.dateFormat = "hh:mm"
         return self.dateFormatter.string(from: date)
     }
@@ -76,44 +74,36 @@ class DataManager {
         save()
     }
  
-    public func getNote(index : Int) -> Note
-    {
+    public func getNote(index : Int) -> Note {
         return data.notes[index]
     }
     
-    public func getNotesNbr() -> Int
-    {
+    public func getNotesNbr() -> Int {
         return  data.notes.count
     }
     
-    public  func setState(state: eState)
-    {
+    public  func setState(state: eState) {
         self.data.state = state
     }
     
-    public  func getState() -> eState
-    {
+    public  func getState() -> eState {
         return self.data.state
     }
 
-    public  func setSortType(type: eSortType)
-    {
+    public  func setSortType(type: eSortType) {
         self.data.sortType = type
     }
     
-    public  func getSortType() -> eSortType
-    {
+    public  func getSortType() -> eSortType {
         return self.data.sortType
     }
     
     
-    public func appendNextNotePack()
-    {
+    public func appendNextNotePack() {
         data.notes += getNotePack()
     }
     
-    public  func deleteNote(note : Note)
-    {
+    public  func deleteNote(note : Note) {
         if let index = data.notes.index(of: note) {
             managedObjectContext.delete(data.notes[index])
             data.notes.remove(at: index)
@@ -121,18 +111,15 @@ class DataManager {
         }
     }
     
-    public  func deleteNoteAtIndex(index : Int)
-    {
-        if(data.notes.count > index)
-        {
+    public  func deleteNoteAtIndex(index : Int) {
+        if(data.notes.count > index) {
             managedObjectContext.delete(data.notes[index])
             data.notes.remove(at: index)
             save()
         }
     }
 
-    public func editNote(note: Note, info: String, modDate: Date)
-    {
+    public func editNote(note: Note, info: String, modDate: Date) {
         note.info = info
         note.modDate = modDate
         save()
@@ -140,55 +127,45 @@ class DataManager {
     
     public func getAllNotes() ->[Note] {
         let rqst = NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
-        do
-        {
+        do {
             let result = try managedObjectContext.fetch(rqst) as! [Note]
             return result
         }
-        catch
-        {
+        catch {
             print("Error! notes were not downloaded!")
             return []
         }
     }
     
-    public func getNotePack() -> [Note]
-    {
+    public func getNotePack() -> [Note] {
         let rqst = NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
         rqst.fetchLimit = 20
         rqst.fetchOffset = self.data.fetchOffset
         self.data.fetchOffset += 20
-        do
-        {
+        do {
             let result = try managedObjectContext.fetch(rqst) as! [Note]
             return result
         }
-        catch
-        {
+        catch {
             print("Error! notes were not downloaded!")
             return []
         }
     }
     
-    public func save()
-    {
-        if managedObjectContext.hasChanges
-        {
-            do
-            {
+    public func save() {
+        if managedObjectContext.hasChanges {
+            do {
                 print("note was saved")
                 try self.managedObjectContext.save()
             }
-            catch(let err)
-            {
+            catch(let err) {
                 print("note was not saved")
                 print(err)
             }
         }
     }
     
-    public func sortAllNotes(sortType: eSortType)
-    {
+    public func sortAllNotes(sortType: eSortType) {
        if(data.notes.count > 1){
             data.notes.sort(by: noteSortFunctionArr[sortType]!)
         }

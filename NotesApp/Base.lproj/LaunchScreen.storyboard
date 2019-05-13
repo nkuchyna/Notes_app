@@ -9,6 +9,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
@@ -25,9 +30,9 @@
                                     <constraint firstAttribute="height" constant="90" id="rJh-OS-C3K"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NOTES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HEn-J0-8MN">
-                                <rect key="frame" x="142" y="399.5" width="90" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NOTES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HEn-J0-8MN">
+                                <rect key="frame" x="142" y="399.5" width="90" height="20"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -38,6 +43,7 @@
                             <constraint firstItem="HEn-J0-8MN" firstAttribute="leading" secondItem="SkB-62-qcL" secondAttribute="leading" id="TCW-36-EF2"/>
                             <constraint firstItem="SkB-62-qcL" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="VNe-P6-tlh"/>
                             <constraint firstItem="HEn-J0-8MN" firstAttribute="top" secondItem="SkB-62-qcL" secondAttribute="bottom" constant="11" id="fQt-Uo-NrZ"/>
+                            <constraint firstItem="HEn-J0-8MN" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="i3x-At-Dae"/>
                             <constraint firstItem="SkB-62-qcL" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="owj-ON-Rwd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

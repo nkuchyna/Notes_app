@@ -9,4 +9,4 @@ Simple note-taking IOS application
 - swipe a note cell to addit or delete note
 - search in the notes list
 
-[![Notes_app](https://github.com/nkuchyna/RT/blob/master/screenshots/global_illumination.png)]
+![Notes_app](https://github.com/nkuchyna/Notes_app/blob/master/Note_app.gif)

@@ -15,6 +15,7 @@ class AddEditNoteViewController: UIViewController, UITextViewDelegate {
         if (self.validateString(string: infoTextView.text) != false) {
             let activityController = UIActivityViewController(activityItems: [infoTextView.text!], applicationActivities: nil)
             activityController.popoverPresentationController?.sourceView = self.view
+            activityController.view.tintColor = UIColor(red: 0.49, green: 0.17, blue: 0.2, alpha: 1)
             present(activityController, animated: true, completion: nil)
         }
     }

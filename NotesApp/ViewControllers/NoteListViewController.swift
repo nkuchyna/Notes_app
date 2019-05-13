@@ -127,7 +127,7 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
         return UITableViewAutomaticDimension
     }
 
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         DataManager.shared.setState(state: eState.EDIT)
         performSegue(withIdentifier: "addEditNote", sender: indexPath)
     }

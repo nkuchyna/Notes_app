@@ -24,6 +24,7 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
             let isMatchingSearchText =    ((note.info?.lowercased().range(of: searchText.lowercased())) != nil) || searchText.lowercased().count == 0
             return isMatchingSearchText
         }
+        DataManager.shared.sortNotesArr(notesArr: &self.matchingItems, sortType: DataManager.shared.getSortType())
     }
 
     var resultSearchController:UISearchController? = nil

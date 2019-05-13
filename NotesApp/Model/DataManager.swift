@@ -170,4 +170,10 @@ class DataManager {
             data.notes.sort(by: noteSortFunctionArr[sortType]!)
         }
     }
+    
+    public func sortNotesArr( notesArr: inout [Note], sortType: eSortType) {
+        if(notesArr.count > 1){
+            notesArr.sort(by: noteSortFunctionArr[sortType]!)
+        }
+    }
 }

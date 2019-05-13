@@ -9,5 +9,6 @@ Simple note-taking IOS application
 - swipe a cell to addit or delete note
 - sort notes by creation/mpdification date or by name
 - search in the notes list
+- notes are loaded from the database gradually 20 items per time
 
 ![Notes_app](https://github.com/nkuchyna/Notes_app/blob/master/Note_app.gif)
